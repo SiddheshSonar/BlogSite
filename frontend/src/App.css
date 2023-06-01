@@ -8,3 +8,55 @@
     font-size: 1.6rem;
     font-weight: 700;
 }
+
+.create-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: bisque;
+    width: 80vh;
+}
+
+.post-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 1.2rem 0;
+}
+
+.post-head {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.post-info {
+    /* height: 100vh; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.post-labels {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 5%;
+    margin-bottom: 1.5%;
+}
+
+.submit-post {
+    margin: 2rem 0;
+}
+
+.post-title {
+    height: 35px;
+}
+
+.post-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
