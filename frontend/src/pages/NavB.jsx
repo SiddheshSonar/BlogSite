@@ -2,10 +2,20 @@ import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 import Logo from "../assets/react.svg"
+import { signOut } from 'firebase/auth';
+import { auth } from '../Firebase-config';
 
 function NavB() {
+
+  const handleLogout = () => {
+    signOut(auth).then(() => {
+      localStorage.clear();
+      localStorage.setItem('isAuth', false);
+    })
+    window.location.pathname = '/login';
+  }
+
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
@@ -23,7 +33,7 @@ function NavB() {
           <Nav className="me-auto">
             <Nav.Link href="./home">Home</Nav.Link>
             <Nav.Link href="./post">Create Post</Nav.Link>
-            <Nav.Link href="./">Logout</Nav.Link>
+            <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

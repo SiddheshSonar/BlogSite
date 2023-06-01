@@ -1,7 +1,32 @@
-import React from 'react';
+import {React, useState} from 'react';
 import {MDBContainer, MDBCol, MDBRow, MDBBtn, MDBIcon, MDBInput, MDBCheckbox } from 'mdb-react-ui-kit';
+import { auth, provider } from '../Firebase-config';
+import { signInWithPopup } from "firebase/auth";
+import {useNavigate} from 'react-router-dom';
+import GoogleIcon from '@mui/icons-material/Google';
+import '../App.css';
 
-function Login() {
+function Login({setIsAuth}) {
+  let navigate = useNavigate();
+
+  if (localStorage.getItem('isAuth') === 'true') {
+    window.location.href = '/home';
+}
+  const signIn = () => {
+    signInWithPopup(auth, provider).then((result) => {                                                              
+      setIsAuth(true);
+      localStorage.setItem('isAuth', true);    
+      navigate('/home');
+      let user = result.user;
+      console.log(user);
+    }).catch((error) => {      
+      localStorage.setItem('isAuth', false);    
+      let errorCode = error.code;                                                                                    
+      let errorMessage = error.message;                                                                              
+      console.log(errorCode);                                                                                        
+      console.log(errorMessage);                                                                                     
+    });
+  }
 
   return (
     <MDBContainer fluid className="p-3 my-5 h-custom">
@@ -14,22 +39,13 @@ function Login() {
 
         <MDBCol col='4' md='6'>
 
-          <div className="divider d-flex align-items-center my-5">
-            
+          <div className="sign-container justify-content-center align-items-center my-2">
+            <p className='signIn'>Sign in with Google</p>
+          <div className='text-center text-md-start pt-2'>
+            <MDBBtn className="mb-0 px-5" size='lg' onClick={signIn}><GoogleIcon style={{}}/>Sign In</MDBBtn>
+          </div>
           </div>
 
-          <MDBInput wrapperClass='mb-4' label='Email address' id='formControlLg' type='email' size="lg"/>
-          <MDBInput wrapperClass='mb-4' label='Password' id='formControlLg' type='password' size="lg"/>
-
-          <div className="d-flex justify-content-between mb-4">
-            <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Remember me' />
-            <a href="!#">Forgot password?</a>
-          </div>
-
-          <div className='text-center text-md-start mt-4 pt-2'>
-            <MDBBtn className="mb-0 px-5" size='lg'>Login</MDBBtn>
-            <p className="small fw-bold mt-2 pt-1 mb-2">Don't have an account? <a href="#!" className="link-info">sign in</a></p>
-          </div>
 
         </MDBCol>
 

@@ -1,0 +1,10 @@
+.sign-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.signIn {
+    font-size: 1.6rem;
+    font-weight: 700;
+}
