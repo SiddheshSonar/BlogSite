@@ -1,8 +1,8 @@
-import React from 'react';
+import{ React, useState } from 'react';
 import NavB from './NavB';
-import { useState } from 'react';
 import { addDoc, collection } from 'firebase/firestore';
-import { db, auth } from '../Firebase-config';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { db, auth, storage } from '../Firebase-config';
 import { useNavigate } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
 import Tags from '../data/Tags';
@@ -12,6 +12,7 @@ const Post = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [selectedTags, setSelectedTags] = useState([]);
+  const [image, setImage] = useState(null);
 
   const delay = ms =>
     new Promise(resolve => setTimeout(resolve, ms));
@@ -21,11 +22,17 @@ const Post = () => {
 
   const createPost = async () => {
     if (title === '' || content === '') {
-      toast.error('Please fill all the fields');
+      toast.error('Please fill all the required fields');
       return;
     } else {
-        const currentTime = new Date();
+      const currentTime = new Date();
       const creationTime = currentTime.toLocaleString();
+      let imageURL = null;
+      if (image) {
+        const imageRef = ref(storage, `images/${title}-${currentTime.getTime()}`);
+        await uploadBytes(imageRef, image);
+        imageURL = await getDownloadURL(imageRef);
+      }
       await addDoc(postRef, {
         title: title,
         content: content,
@@ -36,12 +43,15 @@ const Post = () => {
           photo: auth.currentUser.photoURL,
           creationTime: creationTime,
         },
+        image: {
+          url: imageURL,
+          required: false,
+        },
       });
 
       toast.success('Post created successfully');
       await delay(2000);
       window.location.reload();
-    //   navigate('/home');
     }
   };
 
@@ -79,6 +89,15 @@ const Post = () => {
               setContent(event.target.value);
             }}
           ></textarea>
+          <label className="post-labels">Image:</label>
+          <input
+            type="file"
+            accept='image/*'
+            className="post-image"
+            onChange={(event) => {
+              setImage(event.target.files[0]);
+            }}
+          />
           <label className="post-labels">Tags:</label>
           <Select
             isMulti

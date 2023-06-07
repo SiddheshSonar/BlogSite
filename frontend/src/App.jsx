@@ -1,9 +1,12 @@
-import {React, useState} from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import Post from './pages/Post';
+import MyPost from './pages/MyPost';
+import LikedPost from './pages/LikedPost';
+import Profile from './pages/Profile';
 
 const App = () => {
   const [isAuth, setIsAuth] = useState(false);
@@ -14,6 +17,9 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/post" element={<Post />} />
+        <Route path="/myposts" element={<MyPost />} />
+        <Route path="/likedposts" element={<LikedPost />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </Router>
 

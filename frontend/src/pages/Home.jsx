@@ -8,7 +8,6 @@ import PostCard from './Card';
 const Home = () => {
     const [postList, setPostList] = useState([]);
     const postRef = collection(db, 'posts');
-    // console.log(postList);
 
     useEffect(() => {
         const getPosts = async () => {
@@ -19,11 +18,7 @@ const Home = () => {
     }, []); 
     
     const postElements = postList.map((post) => {
-        return (
-            <div className='post-container'>
-                <PostCard post={post} />
-                </div>
-        );
+        return <PostCard post={post} />
     });
 
     if (localStorage.getItem('isAuth') === 'false') {
@@ -34,13 +29,9 @@ const Home = () => {
             <div>
                 <NavB/>
                 <div className='home-page'>
-                    {postList.map((post) => {
-                        return (
                             <div className='post-container'>
                                 {postElements}
                             </div>
-                        );
-                    })}
                 </div>
             </div>
         );

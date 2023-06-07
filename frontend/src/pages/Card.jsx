@@ -4,6 +4,7 @@ import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
+import { auth } from '../Firebase-config';
 import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
 import Avatar from '@mui/material/Avatar';
@@ -27,7 +28,7 @@ const ExpandMore = styled((props) => {
 }));
 
 function PostCard({ post }) {
-    const [expanded, setExpanded] = React.useState(false);
+    const creationTime = formatDate(post.author.creationTime);
 
     function formatDate(dateString) {
         const date = new Date(dateString);
@@ -39,36 +40,46 @@ function PostCard({ post }) {
         return `${month} ${day}, ${year}, ${time}`;
     }
 
-    const creationTime = formatDate(post.author.creationTime);
-
-    const handleExpandClick = () => {
-        setExpanded(!expanded);
-    };
 
     return (
-        <Card sx={{ maxWidth: 345 }}>
+        <Card className='post-card' sx={{ width: "40rem", height: "auto", margin: "1rem", border: "1px black" }}>
             <CardHeader
                 avatar={
-                    <Avatar sx={{
-                        bgcolor: red[500],
-                        backgroundImage: `url(${post.author.photo})`,
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                    }} />
+                    <img
+                  alt="Profile"
+                  src={auth.currentUser?.photoURL}
+                  width="50rem"  
+                  className="user-image"
+                />
                 }
                 action={
-                    <IconButton aria-label="add to favorites">
-                        <FavoriteIcon />
+                    <IconButton aria-label="like-btn">
+                        <FavoriteIcon sx={{fontSize: "2.2rem"}}/>
                     </IconButton>
                 }
                 title={post.author.name}
+                titleTypographyProps={{
+                    fontWeight: "bold",
+                    fontSize: "1.2rem",
+                  }}  
                 subheader={creationTime}
             />
-
+            <hr style={{ width: "100%", color: "black", height: "1px", backgroundColor: "black", margin: "0" }} />
             <CardContent>
-                <Typography variant="body2" color="text.primary">
+                <h5 className='blog-title'>
+                    {post.title}
+                </h5>
+                {post.image.url && (
+                    <CardMedia
+                        component="img"
+                        className='blog-image'
+                        image={post.image.url}
+                        alt="image here"
+                    />
+                )}
+                <p className='blog-content'>
                     {post.content}
-                </Typography>
+                </p>
             </CardContent>
         </Card>
     );
