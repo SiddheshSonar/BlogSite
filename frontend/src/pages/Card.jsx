@@ -9,11 +9,9 @@ import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Blog from './Blog';
+
 
 
 const ExpandMore = styled((props) => {
@@ -40,27 +38,26 @@ function PostCard({ post }) {
         return `${month} ${day}, ${year}, ${time}`;
     }
 
-
     return (
-        <Card className='post-card' sx={{ width: "40rem", height: "auto", margin: "1rem", border: "1px black" }}>
+        <Card sx={{ width: "35rem", maxHeight: "16rem", margin: "1rem", border: "1px black" }}>
             <CardHeader
                 avatar={
                     <img
                   alt="Profile"
                   src={auth.currentUser?.photoURL}
-                  width="50rem"  
+                  width="40rem"  
                   className="user-image"
                 />
                 }
                 action={
                     <IconButton aria-label="like-btn">
-                        <FavoriteIcon sx={{fontSize: "2.2rem"}}/>
+                        <FavoriteIcon sx={{fontSize: "2rem"}}/>
                     </IconButton>
                 }
                 title={post.author.name}
                 titleTypographyProps={{
                     fontWeight: "bold",
-                    fontSize: "1.2rem",
+                    fontSize: "1rem",
                   }}  
                 subheader={creationTime}
             />
@@ -69,17 +66,20 @@ function PostCard({ post }) {
                 <h5 className='blog-title'>
                     {post.title}
                 </h5>
+                <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+                <p className='blog-content'>
+                    {post.content.split(" ").slice(0, 10).join(" ")}...{" "}
+                </p>
                 {post.image.url && (
                     <CardMedia
                         component="img"
                         className='blog-image'
                         image={post.image.url}
                         alt="image here"
+                        sx={{ width: "6rem", height: "6rem", marginTop: "-2rem", borderRadius: "0.5rem" }}
                     />
                 )}
-                <p className='blog-content'>
-                    {post.content}
-                </p>
+                </div>
             </CardContent>
         </Card>
     );

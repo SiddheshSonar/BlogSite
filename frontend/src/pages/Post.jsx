@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
 import Tags from '../data/Tags';
 import Select from 'react-select';
+import UploadIcon from '@mui/icons-material/Upload';
 
 const Post = () => {
   const [title, setTitle] = useState('');
@@ -68,7 +69,7 @@ const Post = () => {
       <NavB />
       <div className="post-page">
         <Toaster />
-        <h1 className="post-head">Create a Post</h1>
+        <h1 className="post-head">Create a Blog</h1>
         <div className="post-info">
           <label className="post-labels">Title:</label>
           <input
@@ -109,7 +110,7 @@ const Post = () => {
           />
         </div>
         <button className="btn btn-primary submit-post" onClick={createPost}>
-          Submit Post
+          Post Blog <UploadIcon />
         </button>
       </div>
     </div>

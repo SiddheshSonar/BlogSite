@@ -6,7 +6,7 @@ import Home from './pages/Home';
 import Post from './pages/Post';
 import MyPost from './pages/MyPost';
 import LikedPost from './pages/LikedPost';
-import Profile from './pages/Profile';
+import Blog from './pages/Blog';
 
 const App = () => {
   const [isAuth, setIsAuth] = useState(false);
@@ -19,7 +19,7 @@ const App = () => {
         <Route path="/post" element={<Post />} />
         <Route path="/myposts" element={<MyPost />} />
         <Route path="/likedposts" element={<LikedPost />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/blog/:id" element={<Blog />} />
       </Routes>
     </Router>
 
