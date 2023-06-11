@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import Post from './pages/Post';
@@ -22,7 +22,6 @@ const App = () => {
         <Route path="/blog/:id" element={<Blog />} />
       </Routes>
     </Router>
-
   );
 };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import NavB from './NavB';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../Firebase-config';
 import PostCard from './Card';

@@ -6,8 +6,8 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Logo from '../assets/react.svg';
 import { signOut } from 'firebase/auth';
 import { auth } from '../Firebase-config';
-import '../App.css';
 import LogoutIcon from '@mui/icons-material/Logout';
+import '../App.css';
 
 function NavB() {
   const handleLogout = () => {
@@ -19,9 +19,9 @@ function NavB() {
   };
 
   return (
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" style={{ marginBottom: '1rem' }}>
+    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" fixed='top' style={{ marginBottom: '1rem' }}>
       <Container>
-        <Navbar.Brand className="nav-title" href="./home">
+        <Navbar.Brand className="nav-title" onClick={() => {window.location.pathname = '/home'}} style={{cursor: "pointer"}}>
           <img
             alt="Logo"
             src={Logo}
@@ -34,10 +34,10 @@ function NavB() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="./home">Home</Nav.Link>
-            <Nav.Link href="./myposts">My Blogs</Nav.Link>
-            <Nav.Link href="./likedposts">Liked Blogs</Nav.Link>
-            <Nav.Link href="./post">Create Blog</Nav.Link>
+            <Nav.Link onClick={() => {window.location.pathname = '/home'}}>Home</Nav.Link>
+            <Nav.Link onClick={() => {window.location.pathname = '/myposts'}}>My Blogs</Nav.Link>
+            <Nav.Link onClick={() => {window.location.pathname = '/likedposts'}}>Liked Blogs</Nav.Link>
+            <Nav.Link onClick={() => {window.location.pathname = '/post'}}>Create Blog</Nav.Link>
             <NavDropdown className="avatar-dropdown" id="collasible-nav-dropdown" title={auth.currentUser?.photoURL && <img
               alt="Account"
               src={auth.currentUser?.photoURL}

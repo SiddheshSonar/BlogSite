@@ -1,31 +1,17 @@
-import * as React from 'react';
-import { styled } from '@mui/material/styles';
+import React from 'react';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import { auth } from '../Firebase-config';
-import CardActions from '@mui/material/CardActions';
-import Collapse from '@mui/material/Collapse';
+import { useNavigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import Blog from './Blog';
-
-
-
-const ExpandMore = styled((props) => {
-    const { expand, ...other } = props;
-    return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-    transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-        duration: theme.transitions.duration.shortest,
-    }),
-}));
+import IconButton from '@mui/material/IconButton';
+import EastIcon from '@mui/icons-material/East';
 
 function PostCard({ post }) {
+    const navigate = useNavigate();
     const creationTime = formatDate(post.author.creationTime);
 
     function formatDate(dateString) {
@@ -38,8 +24,13 @@ function PostCard({ post }) {
         return `${month} ${day}, ${year}, ${time}`;
     }
 
+    const handleCardClick = () => {
+        navigate(`/blog/${post.id}`, { state: { post } });
+      };
+      
+
     return (
-        <Card sx={{ width: "35rem", maxHeight: "16rem", margin: "1rem", border: "1px black" }}>
+        <Card onClick={handleCardClick} sx={{ width: "35rem", maxHeight: "16rem", margin: "1rem", border: "1px black", cursor: "pointer" ,"&:hover": { boxShadow: "0 0 10px 5px #ccc", backgroundColor: "#F5F5F5"} }}>
             <CardHeader
                 avatar={
                     <img
@@ -51,7 +42,7 @@ function PostCard({ post }) {
                 }
                 action={
                     <IconButton aria-label="like-btn">
-                        <FavoriteIcon sx={{fontSize: "2rem"}}/>
+                        <EastIcon sx={{fontSize: "2rem"}}/>
                     </IconButton>
                 }
                 title={post.author.name}

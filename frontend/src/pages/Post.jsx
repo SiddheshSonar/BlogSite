@@ -69,6 +69,8 @@ const Post = () => {
       <NavB />
       <div className="post-page">
         <Toaster />
+        <div className='p-container'>
+          
         <h1 className="post-head">Create a Blog</h1>
         <div className="post-info">
           <label className="post-labels">Title:</label>
@@ -112,6 +114,7 @@ const Post = () => {
         <button className="btn btn-primary submit-post" onClick={createPost}>
           Post Blog <UploadIcon />
         </button>
+        </div>
       </div>
     </div>
   );
