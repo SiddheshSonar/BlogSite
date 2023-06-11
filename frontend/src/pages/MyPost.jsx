@@ -25,6 +25,11 @@ const MyPost = () => {
             return <PostCard post={post} />
     }
     });
+
+    if (localStorage.getItem('isAuth') === 'false') {
+        window.location.href = '/login';
+    }
+
     return (
         <div>
             <NavB />
