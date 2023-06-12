@@ -37,7 +37,8 @@ const Post = () => {
       await addDoc(postRef, {
         title: title,
         content: content,
-        tags: selectedTags.map(tag => tag.value),
+        searchTag: selectedTags.map(tag => tag.value),
+        tags: selectedTags.map(tag => tag.label),
         author: {
           name: auth.currentUser.displayName,
           id: auth.currentUser.uid,

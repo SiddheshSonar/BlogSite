@@ -2,7 +2,7 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
-.home-page, .blog-page, .post-page {
+.home-page, .blog-page, .post-page, .search-page {
     margin-top: 4.5rem;
 }
 
@@ -64,6 +64,11 @@ body {
     margin: 1.2rem 0;
 }
 
+.mypost-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
 .p-container {
     display: flex;
     flex-direction: column;
@@ -83,7 +88,6 @@ body {
 }
 
 .post-info {
-    /* height: 100vh; */
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -141,4 +145,42 @@ body {
 
 .user-image {
     border-radius: 50%;;
+}
+
+.tag-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-top: 1rem;
+}
+
+.tag-head {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.blog-tags {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tag {
+    margin: 0 0.25rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    font-style: italic;
+    letter-spacing: 1px;
+    color: #FFFFFF;
+    width: fit-content;
+    background-color: #4a4a4a;
+    padding: 0.25rem 0.5rem;
+    border-radius: 30px;
+    margin-bottom: 0.4rem;
+}
+
+.search-img {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

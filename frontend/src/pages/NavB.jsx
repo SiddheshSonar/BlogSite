@@ -35,9 +35,10 @@ function NavB() {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link onClick={() => {window.location.pathname = '/home'}}>Home</Nav.Link>
-            <Nav.Link onClick={() => {window.location.pathname = '/myposts'}}>My Blogs</Nav.Link>
-            <Nav.Link onClick={() => {window.location.pathname = '/likedposts'}}>Liked Blogs</Nav.Link>
-            <Nav.Link onClick={() => {window.location.pathname = '/post'}}>Create Blog</Nav.Link>
+            <Nav.Link onClick={() => {window.location.pathname = '/myblogs'}}>My Blogs</Nav.Link>
+            <Nav.Link onClick={() => {window.location.pathname = '/likedblogs'}}>Liked Blogs</Nav.Link>
+            <Nav.Link onClick={() => {window.location.pathname = '/search'}}>Search Blogs</Nav.Link>
+            <Nav.Link onClick={() => {window.location.pathname = '/createblog'}}>Create Blog</Nav.Link>
             <NavDropdown className="avatar-dropdown" id="collasible-nav-dropdown" title={auth.currentUser?.photoURL && <img
               alt="Account"
               src={auth.currentUser?.photoURL}

@@ -7,6 +7,7 @@ import Post from './pages/Post';
 import MyPost from './pages/MyPost';
 import LikedPost from './pages/LikedPost';
 import Blog from './pages/Blog';
+import Search from './pages/Search';
 
 const App = () => {
   const [isAuth, setIsAuth] = useState(false);
@@ -16,9 +17,10 @@ const App = () => {
         <Route path="/login" element={<Login setIsAuth={setIsAuth} />} />
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/post" element={<Post />} />
-        <Route path="/myposts" element={<MyPost />} />
-        <Route path="/likedposts" element={<LikedPost />} />
+        <Route path="/createblog" element={<Post />} />
+        <Route path="/myblogs" element={<MyPost />} />
+        <Route path="/likedblogs" element={<LikedPost />} />
+        <Route path="/search" element={<Search />} />
         <Route path="/blog/:id" element={<Blog />} />
       </Routes>
     </Router>
