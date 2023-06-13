@@ -1,12 +1,10 @@
-import React from 'react';
+import { React, useState, Fragment } from 'react';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import { db, auth } from '../Firebase-config';
 import { useNavigate } from 'react-router-dom';
-import Avatar from '@mui/material/Avatar';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import EastIcon from '@mui/icons-material/East';
@@ -19,7 +17,7 @@ import Modal from '@mui/material/Modal';
 function PostCard({ post }) {
     const navigate = useNavigate();
     const creationTime = formatDate(post.author.creationTime);
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
     const handleOpen = () => {
         setOpen(true);
     };
@@ -27,12 +25,14 @@ function PostCard({ post }) {
         setOpen(false);
     };
 
+    console.log(auth.currentUser?.photoURL)
+
     const style = {
         position: 'absolute',
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: 400,
+        width: 475,
         bgcolor: 'background.paper',
         borderRadius: "1rem",
         boxShadow: 24,
@@ -64,14 +64,13 @@ function PostCard({ post }) {
         await deleteDoc(postDoc);
         toast.success('Post deleted successfully!');
         await delay(1000)
-        window.location.reload();   
+        window.history.back();   
         setOpen(false);
     }
 
-
     return (
         <Card sx={{ width: "35rem", maxHeight: "auto", margin: "1rem", border: "1px black", "&:hover": { boxShadow: "0 0 10px 5px #ccc", backgroundColor: "#F5F5F5" } }}>
-            <React.Fragment>
+            <Fragment>
                 <Modal
                     open={open}
                     onClose={handleClose}
@@ -79,20 +78,20 @@ function PostCard({ post }) {
                     aria-describedby="child-modal-description"
                 >
                     <Box sx={{ ...style }}>
-                        <h4 id="child-modal-title">Are you sure you want to delete this post?</h4>
-                        <div style={{display: "flex", flexDirection:"row"}}>
+                        <h5 style={{fontWeight: "700"}} id="child-modal-title">Are you sure you want to delete this post?</h5>
+                        <div style={{display: "flex", flexDirection:"row", justifyContent: "space-evenly", marginTop: "1rem"}}>
                             <button className='btn btn-danger' onClick={() => { handleDelete(post.id) }}>Confirm</button>
-                            <button className='btn btn-primary' style={{marginLeft: "1rem"}} onClick={handleClose}>Cancel</button>
+                            <button className='btn btn-primary' onClick={handleClose}>Cancel</button>
                         </div>
                     </Box>
                 </Modal>
-            </React.Fragment>
+            </Fragment>
             <Toaster />
             <CardHeader
                 avatar={
                     <img
                         alt="Profile"
-                        src={auth.currentUser?.photoURL}
+                        src={post.author.photo}
                         width="40rem"
                         className="user-image"
                     />
@@ -135,14 +134,14 @@ function PostCard({ post }) {
                         />
                     )}
                 </div>
-                <div className='tag-section'>
+                {post.searchTag != 0 && <div className='tag-section'>
                     <h6 className='tag-head'>Tags: </h6>
                     <div className='blog-tags'>
                         {post.searchTag.map((tag) => {
                             return <p className='tag'>#{tag}</p>;
                         })}
                     </div>
-                </div>
+                </div>}
             </CardContent>
         </Card>
     );
