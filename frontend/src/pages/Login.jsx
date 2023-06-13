@@ -1,5 +1,4 @@
 import { React, useState } from 'react';
-import { MDBContainer, MDBCol, MDBRow, MDBBtn, MDBIcon, MDBInput, MDBCheckbox } from 'mdb-react-ui-kit';
 import { auth, provider } from '../Firebase-config';
 import { signInWithPopup } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
