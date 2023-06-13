@@ -15,8 +15,9 @@ const Post = () => {
   const [selectedTags, setSelectedTags] = useState([]);
   const [image, setImage] = useState(null);
 
-  const delay = ms =>
-    new Promise(resolve => setTimeout(resolve, ms));
+  const delay = ms => new Promise(
+    resolve => setTimeout(resolve, ms)
+    );
 
   let navigate = useNavigate();
   const postRef = collection(db, 'posts');
@@ -39,6 +40,7 @@ const Post = () => {
         content: content,
         searchTag: selectedTags.map(tag => tag.value),
         tags: selectedTags.map(tag => tag.label),
+        likes: 0,
         author: {
           name: auth.currentUser.displayName,
           id: auth.currentUser.uid,

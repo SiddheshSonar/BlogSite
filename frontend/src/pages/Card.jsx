@@ -64,7 +64,7 @@ function PostCard({ post }) {
         await deleteDoc(postDoc);
         toast.success('Post deleted successfully!');
         await delay(1000)
-        window.history.back();   
+        window.location.reload();   
         setOpen(false);
     }
 

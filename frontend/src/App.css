@@ -259,6 +259,7 @@ body {
     align-items: center;
     font-weight: 600;
     font-size: 1rem;
+    margin-left: 1rem;
 }
 
 .view-head {

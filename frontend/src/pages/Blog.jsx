@@ -4,6 +4,8 @@ import { useLocation } from 'react-router-dom';
 import IconButton from '@mui/material/IconButton';
 import WestIcon from '@mui/icons-material/West';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { updateDoc, collection } from 'firebase/firestore';
+import { db, auth, storage } from '../Firebase-config';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 
 
@@ -22,6 +24,23 @@ const Blog = () => {
         return `${month} ${day}, ${year}, ${time}`;
     }
 
+    const delay = ms => new Promise(
+        resolve => setTimeout(resolve, ms)
+        );
+
+    const handleLike = async () => {
+        const postRef = collection(db, 'posts');
+        const userRef = collection(db, 'users');
+            await updateDoc(postRef, {
+                likes: increment(1),
+            });
+
+            await updateDoc(userRef, {
+                likedPosts: arrayUnion(post.id),
+            });
+            toast.success('Post liked');
+        }
+
     const handleBack = () => {
         window.history.back();
     };
@@ -33,11 +52,11 @@ const Blog = () => {
                 <div className='blog-container'>
                     <div className='blog-info'>
                         <div className='view-head'>
-                            <IconButton>
-                                <WestIcon onClick={handleBack} sx={{fontSize: "2.2rem"}}/>
+                            <IconButton onClick={handleBack}>
+                                <WestIcon sx={{fontSize: "2.2rem"}}/>
                             </IconButton>
                             <h1 className='view-title'>{post.title}</h1>
-                            <IconButton>
+                            <IconButton onClick={handleLike} >
                                 <FavoriteBorderOutlinedIcon sx={{fontSize: "2.2rem"}}/>
                             </IconButton>
                         </div>
