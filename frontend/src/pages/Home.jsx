@@ -20,19 +20,6 @@ const Home = () => {
             setPostList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
             setLoading(false);
         }
-
-        const checkUserExists = async () => {
-            if () {
-                await addDoc(userRef, {
-                    name: currentUser.displayName,
-                    id: currentUser.uid,
-                    photo: currentUser.photoURL,
-                    likedPosts: [],
-                });
-            }
-        }
-
-        checkUserExists()
         getPosts();
     }, []);
 
