@@ -85,6 +85,7 @@ const Blog = () => {
         const likedPosts = userData.likedPosts || []; 
 
         if (likedPosts.includes(post.id)) {
+          setLiked(true);
             await updateDoc(postRef, {
               likes: Math.max(post.likes - 1, 0),
             });
