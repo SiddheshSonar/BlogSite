@@ -25,8 +25,6 @@ function PostCard({ post }) {
         setOpen(false);
     };
 
-    console.log(auth.currentUser?.photoURL)
-
     const style = {
         position: 'absolute',
         top: '50%',

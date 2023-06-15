@@ -1,7 +1,7 @@
 import React from 'react';
 import NavB from './NavB';
 import { useState, useEffect } from 'react';
-import { collection, getDocs, doc, setDoc, addDoc, query, where, onSnapshot } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 import { auth, db } from '../Firebase-config';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
@@ -11,8 +11,6 @@ const Home = () => {
     const [postList, setPostList] = useState([]);
     const [loading, setLoading] = useState(true);
     const postRef = collection(db, 'posts');
-    const userRef = collection(db, 'users');
-    const currentUser = auth.currentUser;
 
     useEffect(() => {
         const getPosts = async () => {
