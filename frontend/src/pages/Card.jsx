@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import EastIcon from '@mui/icons-material/East';
-import { deleteDoc, doc } from 'firebase/firestore';
+import { doc, deleteDoc, arrayRemove, collection, getDocs, query, where, updateDoc } from 'firebase/firestore';
 import toast, { Toaster } from 'react-hot-toast';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -58,13 +58,35 @@ function PostCard({ post }) {
     };
 
     const handleDelete = async (id) => {
-        const postDoc = doc(db, 'posts', id);
-        await deleteDoc(postDoc);
-        toast.success('Post deleted successfully!');
-        await delay(1000)
-        window.location.reload();   
-        setOpen(false);
-    }
+        const postDocRef = doc(db, 'posts', id);
+        const usersCollectionRef = collection(db, 'users');
+      
+        try {
+          await deleteDoc(postDocRef);
+          toast.success('Post deleted successfully!');
+      
+          const usersSnapshot = await getDocs(
+            query(usersCollectionRef, where('likedPosts', 'array-contains', id))
+          );
+      
+          const updatePromises = usersSnapshot.docs.map((userDoc) => {
+            const userRef = doc(usersCollectionRef, userDoc.id);
+            return updateDoc(userRef, {
+              likedPosts: arrayRemove(id)
+            });
+          });
+      
+          await Promise.all(updatePromises);
+      
+          await delay(1000);
+          window.location.reload();
+          setOpen(false);
+        } catch (error) {
+          console.error('Error deleting post:', error);
+          toast.error('Failed to delete post.');
+        }
+      };
+      
 
     return (
         <Card sx={{ width: "35rem", maxHeight: "auto", margin: "1rem", border: "1px black", "&:hover": { boxShadow: "0 0 10px 5px #ccc", backgroundColor: "#F5F5F5" } }}>

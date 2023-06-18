@@ -179,10 +179,7 @@ body {
 }
 
 .search-img {
-    position: absolute;
-    top: 60%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    width: 45rem;
 }
 
 .view-title {
@@ -268,7 +265,60 @@ body {
     justify-content: space-between;
     align-items: center;
 }
-  
-  .author-date {
+
+.required {
+    color: red;
+    margin: 0 0.2rem;
+}
+
+.author-date {
     color: #808080;
-  }
+}
+
+.search-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-select {
+    width: 45rem;
+}
+
+.search-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.result-title {
+    margin-top: -3rem;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.no-search {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.no-img {
+    width: 32rem;
+    margin-top: -7rem;
+}
+
+.no-text1 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin: 0.5rem;
+}
+
+.no-text2 {
+    font-size: 1.2rem;
+    font-weight: 00;
+    margin: 0.5rem;
+}
+

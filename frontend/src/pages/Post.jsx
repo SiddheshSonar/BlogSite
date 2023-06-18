@@ -23,7 +23,7 @@ const Post = () => {
   const postRef = collection(db, 'posts');
 
   const createPost = async () => {
-    if (title === '' || content === '') {
+    if (title === '' || content === '' || selectedTags.length === 0) {
       toast.error('Please fill all the required fields');
       return;
     } else {
@@ -41,6 +41,7 @@ const Post = () => {
         searchTag: selectedTags.map(tag => tag.value),
         tags: selectedTags.map(tag => tag.label),
         likes: 0,
+        likedBy: [],
         author: {
           name: auth.currentUser.displayName,
           id: auth.currentUser.uid,
@@ -76,7 +77,7 @@ const Post = () => {
           
         <h1 className="post-head">Create a Blog</h1>
         <div className="post-info">
-          <label className="post-labels">Title:</label>
+          <label className="post-labels">Title<span className='required'>*</span>:</label>
           <input
             placeholder="Title...."
             type="text"
@@ -85,7 +86,7 @@ const Post = () => {
               setTitle(event.target.value);
             }}
           />
-          <label className="post-labels">Post:</label>
+          <label className="post-labels">Post<span className='required'>*</span>:</label>
           <textarea
             placeholder="What's on your mind?"
             cols="80"
@@ -104,7 +105,7 @@ const Post = () => {
               setImage(event.target.files[0]);
             }}
           />
-          <label className="post-labels">Tags:</label>
+          <label className="post-labels">Tags<span className='required'>*</span>:</label>
           <Select
             isMulti
             name="tags"

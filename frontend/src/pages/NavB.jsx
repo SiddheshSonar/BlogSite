@@ -29,11 +29,11 @@ function NavB() {
             height="30"
             className="logo-image d-inline-block align-top"
           />{' '}
-          BlogsPress
+          BlogBurst
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
+          <Nav className="ms-auto">
             <Nav.Link onClick={() => {window.location.pathname = '/home'}}>Home</Nav.Link>
             <Nav.Link onClick={() => {window.location.pathname = '/myblogs'}}>My Blogs</Nav.Link>
             <Nav.Link onClick={() => {window.location.pathname = '/likedblogs'}}>Liked Blogs</Nav.Link>
@@ -46,9 +46,7 @@ function NavB() {
               height="30"
               className="avatar-image"
             />}>
-              <NavDropdown.Item className='logout-btn'
-                onClick={handleLogout}
-              >
+              <NavDropdown.Item className='logout-btn' onClick={handleLogout}>
                 <LogoutIcon /> <div style={{marginLeft: "0.4rem"}}>Logout</div>
               </NavDropdown.Item>
             </NavDropdown>

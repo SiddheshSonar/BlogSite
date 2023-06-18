@@ -5,10 +5,14 @@ import IconButton from '@mui/material/IconButton';
 import WestIcon from '@mui/icons-material/West';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { updateDoc, doc, getDoc } from 'firebase/firestore';
-import { db, auth, storage } from '../Firebase-config';
+import { updateDoc, doc, getDoc, onSnapshot } from 'firebase/firestore';
+import { db, auth } from '../Firebase-config';
+import toast, { Toaster } from 'react-hot-toast';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 const Blog = () => {
+  const [loading, setLoading] = useState(true);
   const location = useLocation();
   const post = location.state.post;
   const creationTime = formatDate(post.author.creationTime);
@@ -21,18 +25,22 @@ const Blog = () => {
   }
 
   useEffect(() => {
-    const checkIfLiked = async () => {
-      const userRef = doc(db, 'users', auth.currentUser.uid);
-      const userDoc = await getDoc(userRef);
-      if (userDoc.exists()) {
-        const userData = userDoc.data();
-        const likedPosts = userData.likedPosts || []; 
-        setLiked(likedPosts.includes(post.id));
-        setNoOfLikes(post.likes);
+    const postRef = doc(db, 'posts', post.id);
+    const unsubscribe = onSnapshot(postRef, (snapshot) => {
+      const postData = snapshot.data();
+      if (postData) {
+        setNoOfLikes(postData.likes);
+        setLiked(postData.likedBy.includes(auth.currentUser.uid));
+        setLoading(false);
       }
+    });
+
+    return () => {
+      unsubscribe();
     };
-    checkIfLiked();
-  },[])
+  }, [post.id]);
+
+
 
   function formatDate(dateString) {
     const date = new Date(dateString);
@@ -48,25 +56,28 @@ const Blog = () => {
     try {
       const postRef = doc(db, 'posts', post.id);
       const userRef = doc(db, 'users', auth.currentUser.uid);
-  
+
       const userDoc = await getDoc(userRef);
       if (userDoc.exists()) {
         const userData = userDoc.data();
-        const likedPosts = userData.likedPosts || []; 
+        const likedPosts = userData.likedPosts || [];
 
-        if (likedPosts.includes(post.id)) {
-            alert('You have already liked this post');
-            return;
-          }
+        if (likedPosts.includes(post.id) || post.likedBy.includes(auth.currentUser.uid)) {
+          toast.error('You have already liked this post');
+          return;
+        }
+
+        const updatedLikedBy = [...post.likedBy, auth.currentUser.uid];
 
         await updateDoc(postRef, {
           likes: post.likes + 1,
+          likedBy: updatedLikedBy,
         });
-  
+
         await updateDoc(userRef, {
           likedPosts: [...likedPosts, post.id],
         });
-  
+        toast.success('Added to Liked Blogs');
         setLiked(true);
       }
     } catch (error) {
@@ -78,24 +89,24 @@ const Blog = () => {
     try {
       const postRef = doc(db, 'posts', post.id);
       const userRef = doc(db, 'users', auth.currentUser.uid);
-  
+
       const userDoc = await getDoc(userRef);
       if (userDoc.exists()) {
         const userData = userDoc.data();
-        const likedPosts = userData.likedPosts || []; 
+        const likedPosts = userData.likedPosts || [];
 
         if (likedPosts.includes(post.id)) {
-          setLiked(true);
-            await updateDoc(postRef, {
-              likes: Math.max(post.likes - 1, 0),
-            });
+          await updateDoc(postRef, {
+            likes: Math.max(post.likes - 1, 0),
+            likedBy: post.likedBy.filter((userId) => userId !== auth.currentUser.uid),
+          });
 
-            const updatedLikedPosts = likedPosts.filter((postId) => postId !== post.id);
-            await updateDoc(userRef, {
-              likedPosts: updatedLikedPosts,
-            });
-            
-            setLiked(false);
+          const updatedLikedPosts = likedPosts.filter((postId) => postId !== post.id);
+          await updateDoc(userRef, {
+            likedPosts: updatedLikedPosts,
+          });
+          toast.error('Removed from Liked Blogs');
+          setLiked(false);
         }
       }
     } catch (error) {
@@ -111,52 +122,66 @@ const Blog = () => {
   return (
     <div>
       <NavB />
-      <div className='blog-page'>
-        <div className='blog-container'>
-          <div className='blog-info'>
-            <div className='view-head'>
-              <IconButton onClick={handleBack}>
-                <WestIcon sx={{ fontSize: '2.2rem' }} />
-              </IconButton>
-              <h1 className='view-title'>{post.title}</h1>
-              {liked ? (
-                <IconButton onClick={handleUnlike}>
-                    <FavoriteIcon sx={{ fontSize: '2.2rem' }} />
-                    {noOfLikes}
+      <Toaster />
+      {loading ? (
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%,-50%)',
+          }}
+        >
+          <CircularProgress />
+        </Box>
+      ) : (
+        <div className='blog-page'>
+          <div className='blog-container'>
+            <div className='blog-info'>
+              <div className='view-head'>
+                <IconButton onClick={handleBack}>
+                  <WestIcon sx={{ fontSize: '2.2rem' }} />
                 </IconButton>
+                <h1 className='view-title'>{post.title}</h1>
+                {liked ? (
+                  <IconButton onClick={handleUnlike}>
+                    <FavoriteIcon sx={{ fontSize: '2.2rem', color: "red" }} />
+                    {noOfLikes}
+                  </IconButton>
                 ) : (
-                <IconButton onClick={handleLike}>
+                  <IconButton onClick={handleLike}>
                     <FavoriteBorderOutlinedIcon sx={{ fontSize: '2.2rem' }} />
                     {noOfLikes}
-                </IconButton>
+                  </IconButton>
                 )
                 }
-            </div>
-            <div className='view-fix'></div>
-            <div className='view-body'>
-              {post.image.url && (
-                <div className='blog-img'>
-                  <img alt='Blog' src={post.image.url} className='view-image' />
-                </div>
-              )}
-              <div className='view-content'>{post.content}</div>
-            </div>
-            <div className='view-foot'>
-              <div className='view-tag'>
-                {post.tags.map((tag, index) => (
-                  <div key={index} className='tag'>
-                    #{tag}
-                  </div>
-                ))}
               </div>
-              <div className='author-info'>
-                <div className='author-name'>By @{post.author.name}</div>
-                <div className='author-date'>{creationTime}</div>
+              <div className='view-fix'></div>
+              <div className='view-body'>
+                {post.image.url && (
+                  <div className='blog-img'>
+                    <img alt='Blog' src={post.image.url} className='view-image' />
+                  </div>
+                )}
+                <div className='view-content'>{post.content}</div>
+              </div>
+              <div className='view-foot'>
+                <div className='view-tag'>
+                  {post.tags.map((tag, index) => (
+                    <div key={index} className='tag'>
+                      #{tag}
+                    </div>
+                  ))}
+                </div>
+                <div className='author-info'>
+                  <div className='author-name'>By @{post.author.name}</div>
+                  <div className='author-date'>{creationTime}</div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

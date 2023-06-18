@@ -38,7 +38,7 @@ const MyPost = () => {
         <div>
             <NavB />
             <div className='home-page'>
-                <h1 className='mypost-title'>My Posts</h1>
+                <h1 className='mypost-title'>My Blogs</h1>
                 {loading && <Box sx={{
                         position: "absolute",
                         top: "50%",

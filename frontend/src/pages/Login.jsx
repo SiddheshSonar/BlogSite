@@ -49,7 +49,7 @@ function Login({ setIsAuth }) {
       <div className="sign-container justify-content-center align-items-center my-2">
         <p className='signIn'>Sign In with Google</p>
         <div className='text-center text-md-start pt-2'>
-          <button className="" size='lg' onClick={signInWithGoogle}><GoogleIcon style={{}} />Sign Up With Google</button>
+          <button className="" size='lg' onClick={signInWithGoogle}><GoogleIcon style={{}} />Sign In With Google</button>
         </div>
       </div>
     </div>
