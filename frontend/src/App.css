@@ -124,6 +124,7 @@ body {
     font-weight: 700;
     margin-bottom: 1rem;
     text-align: center;
+    word-wrap: break-word;
 }
 
 .blog-image {
@@ -187,6 +188,8 @@ body {
     font-size: 2rem;
     font-weight: 700;
     margin: 1rem 1rem;
+    max-width: 50rem;
+    word-wrap: break-word;
 }
 
 .blog-page {
@@ -264,6 +267,7 @@ body {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    max-width: 60rem;
 }
 
 .required {
@@ -322,3 +326,52 @@ body {
     margin: 0.5rem;
 }
 
+.google-icon {
+    margin-bottom: 2px;
+}
+
+.sign-btn {
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
+    border: 1px solid #4a4a4a;
+    font-weight: 500;
+    font-size: 1.2rem;
+    border-radius: 5rem;
+}
+
+.sign-container {
+    width: 20rem;
+    height: 10rem;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
+    border-radius: 30px;
+}
+
+.login-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.img-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+@media (min-width: 1092px) {
+    .img-btn {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .sign-container {
+        width: 30rem;
+        height: 10rem;
+        box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
+        border-radius: 30px;
+        margin-right: 1rem;
+    }
+}

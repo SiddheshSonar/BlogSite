@@ -44,13 +44,22 @@ function Login({ setIsAuth }) {
 
   return (
     <div className='login-container'>
-      <h1 className='login-title'>BlogsPress</h1>
+      <h1 className='login-title'>BlogBuster</h1>
+      <div className='img-btn'>
       <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp" className="img-fluid" alt="image here" />
       <div className="sign-container justify-content-center align-items-center my-2">
         <p className='signIn'>Sign In with Google</p>
         <div className='text-center text-md-start pt-2'>
-          <button className="" size='lg' onClick={signInWithGoogle}><GoogleIcon style={{}} />Sign In With Google</button>
+          <button className="btn btn-light sign-btn" size='lg' onClick={signInWithGoogle}>
+            <img 
+            src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png" 
+            alt="G"
+            width='35'
+            className='google-icon'
+             />
+            Sign In</button>
         </div>
+      </div>
       </div>
     </div>
   );

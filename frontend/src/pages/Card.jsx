@@ -8,8 +8,10 @@ import { useNavigate } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import EastIcon from '@mui/icons-material/East';
-import { doc, deleteDoc, arrayRemove, collection, getDocs, query, where, updateDoc } from 'firebase/firestore';
+import { doc, deleteDoc, arrayRemove, collection, getDocs, query, where, updateDoc, getDoc } from 'firebase/firestore';
+import { getStorage, ref, deleteObject } from 'firebase/storage';
 import toast, { Toaster } from 'react-hot-toast';
+import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 
@@ -57,14 +59,24 @@ function PostCard({ post }) {
         navigate(`/blog/${post.id}`, { state: { post } });
     };
 
+    const storage = getStorage();
+
     const handleDelete = async (id) => {
         const postDocRef = doc(db, 'posts', id);
         const usersCollectionRef = collection(db, 'users');
       
         try {
+            const postSnapshot = await getDoc(postDocRef);
+            const postData = postSnapshot.data();
+
           await deleteDoc(postDocRef);
           toast.success('Post deleted successfully!');
-      
+
+          if (postData?.image?.url) {
+            const imageRef = ref(storage, postData.image.url);
+            await deleteObject(imageRef);
+          }
+
           const usersSnapshot = await getDocs(
             query(usersCollectionRef, where('likedPosts', 'array-contains', id))
           );
@@ -108,14 +120,13 @@ function PostCard({ post }) {
             </Fragment>
             <Toaster />
             <CardHeader
-                avatar={
-                    <img
-                        alt="Profile"
-                        src={post.author.photo}
-                        width="40rem"
-                        className="user-image"
-                    />
-                }
+                 avatar={
+                    post.author.photo ? (
+                      <Avatar alt="Profile" src={post.author.photo} sx={{ width: 40, height: 40 }} />
+                    ) : (
+                      null
+                    )
+                  }
                 action={
                     <div>
                         <IconButton onClick={handleCardClick} aria-label="like-btn">
@@ -150,7 +161,7 @@ function PostCard({ post }) {
                             className='blog-image'
                             image={post.image.url}
                             alt="image here"
-                            sx={{ width: "6rem", height: "6rem", marginTop: "-2rem", borderRadius: "0.5rem" }}
+                            sx={{ width: "6rem", height: "6rem", borderRadius: "0.5rem" }}
                         />
                     )}
                 </div>
