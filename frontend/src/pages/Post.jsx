@@ -1,4 +1,4 @@
-import{ React, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import NavB from './NavB';
 import { addDoc, collection } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
@@ -8,6 +8,8 @@ import toast, { Toaster } from 'react-hot-toast';
 import Tags from '../data/Tags';
 import Select from 'react-select';
 import UploadIcon from '@mui/icons-material/Upload';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const Post = () => {
   const [title, setTitle] = useState('');
@@ -15,12 +17,15 @@ const Post = () => {
   const [selectedTags, setSelectedTags] = useState([]);
   const [image, setImage] = useState(null);
 
-  const delay = ms => new Promise(
-    resolve => setTimeout(resolve, ms)
-    );
-
-  let navigate = useNavigate();
+  const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+  const navigate = useNavigate();
   const postRef = collection(db, 'posts');
+
+  useEffect(() => {
+    if (localStorage.getItem('isAuth') === 'false') {
+      navigate('/login');
+    }
+  }, [navigate]);
 
   const createPost = async () => {
     if (title === '' || content === '' || selectedTags.length === 0) {
@@ -54,15 +59,11 @@ const Post = () => {
         },
       });
 
-      toast.success('Post created successfully');
+      toast.success('Blog created successfully!');
       await delay(2000);
       window.location.reload();
     }
   };
-
-  if (localStorage.getItem('isAuth') === 'false') {
-    window.location.href = '/login';
-  }
 
   const handleTagChange = (selectedOptions) => {
     setSelectedTags(selectedOptions);
@@ -72,52 +73,52 @@ const Post = () => {
     <div>
       <NavB />
       <div className="post-page">
-        <Toaster />
+        <Toaster/>
         <div className='p-container'>
-          
-        <h1 className="post-head">Create a Blog</h1>
-        <div className="post-info">
-          <label className="post-labels">Title<span className='required'>*</span>:</label>
-          <input
-            placeholder="Title...."
-            type="text"
-            className="post-title"
-            onChange={(event) => {
-              setTitle(event.target.value);
-            }}
-          />
-          <label className="post-labels">Post<span className='required'>*</span>:</label>
-          <textarea
-            placeholder="What's on your mind?"
-            cols="80"
-            rows="15"
-            className="post-content"
-            onChange={(event) => {
-              setContent(event.target.value);
-            }}
-          ></textarea>
-          <label className="post-labels">Image:</label>
-          <input
-            type="file"
-            accept='image/*'
-            className="post-image"
-            onChange={(event) => {
-              setImage(event.target.files[0]);
-            }}
-          />
-          <label className="post-labels">Tags<span className='required'>*</span>:</label>
-          <Select
-            isMulti
-            name="tags"
-            options={Tags}
-            className="basic-multi-select"
-            classNamePrefix="select"
-            onChange={handleTagChange}
-          />
-        </div>
-        <button className="btn btn-primary submit-post" onClick={createPost}>
-          Post Blog <UploadIcon />
-        </button>
+          <h1 className="post-head">Create a Blog</h1>
+          <div className="post-info">
+            <label className="post-labels">Title<span className='required'>*</span>:</label>
+            <input
+              placeholder="Title...."
+              type="text"
+              className="post-title"
+              value={title}
+              onChange={(event) => {
+                setTitle(event.target.value);
+              }}
+            />
+            <label className="post-labels">Post<span className='required'>*</span>:</label>
+            <ReactQuill
+              theme="snow"
+              className="post-content"
+              value={content}
+              onChange={(value) => {
+                setContent(value);
+              }}
+            />
+            <label className="post-labels">Image:</label>
+            <input
+              type="file"
+              accept='image/*'
+              className="post-image"
+              onChange={(event) => {
+                setImage(event.target.files[0]);
+              }}
+            />
+            <label className="post-labels">Tags<span className='required'>*</span>:</label>
+            <Select
+              isMulti
+              name="tags"
+              options={Tags}
+              className="basic-multi-select post-select"
+              classNamePrefix="select"
+              value={selectedTags}
+              onChange={handleTagChange}
+            />
+          </div>
+          <button className="btn btn-primary submit-post" onClick={createPost}>
+            Post Blog <UploadIcon />
+          </button>
         </div>
       </div>
     </div>

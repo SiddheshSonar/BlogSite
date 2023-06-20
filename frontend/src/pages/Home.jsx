@@ -2,7 +2,7 @@ import React from 'react';
 import NavB from './NavB';
 import { useState, useEffect } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
-import { auth, db } from '../Firebase-config';
+import { db } from '../Firebase-config';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import PostCard from './Card';

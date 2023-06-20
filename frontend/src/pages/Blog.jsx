@@ -40,8 +40,6 @@ const Blog = () => {
     };
   }, [post.id]);
 
-
-
   function formatDate(dateString) {
     const date = new Date(dateString);
     const month = date.toLocaleString('default', { month: 'long' });
@@ -114,7 +112,6 @@ const Blog = () => {
     }
   };
 
-
   const handleBack = () => {
     window.history.back();
   };
@@ -140,30 +137,38 @@ const Blog = () => {
             <div className='blog-info'>
               <div className='view-head'>
                 <IconButton onClick={handleBack}>
-                  <WestIcon sx={{ fontSize: '2.2rem' }} />
+                  <WestIcon 
+                  sx={{ 
+                    fontSize: '2.2rem', 
+                    '@media(max-width:420px)' : {
+                      fontSize: '1.8rem'
+                    }}} 
+                    />
                 </IconButton>
                 <h1 className='view-title'>{post.title}</h1>
                 {liked ? (
                   <IconButton onClick={handleUnlike}>
-                    <FavoriteIcon sx={{ fontSize: '2.2rem', color: "red" }} />
+                    <FavoriteIcon sx={{ fontSize: '2.2rem', color: "red", '@media(max-width:420px)' : {
+                      fontSize: '1.8rem'
+                    } }} />
                     {noOfLikes}
                   </IconButton>
                 ) : (
                   <IconButton onClick={handleLike}>
-                    <FavoriteBorderOutlinedIcon sx={{ fontSize: '2.2rem' }} />
+                    <FavoriteBorderOutlinedIcon sx={{ fontSize: '2.2rem', '@media(max-width:420px)' : {
+                      fontSize: '1.8rem'
+                    }}} />
                     {noOfLikes}
                   </IconButton>
-                )
-                }
+                )}
               </div>
-              <div className='view-fix'></div>
               <div className='view-body'>
                 {post.image.url && (
                   <div className='blog-img'>
                     <img alt='Blog' src={post.image.url} className='view-image' />
                   </div>
                 )}
-                <div className='view-content'>{post.content}</div>
+                <div className='view-content' dangerouslySetInnerHTML={{ __html: post.content }} />
               </div>
               <div className='view-foot'>
                 <div className='view-tag'>

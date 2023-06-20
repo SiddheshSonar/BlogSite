@@ -90,7 +90,8 @@ body {
 .post-info {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 .post-labels {
@@ -110,6 +111,7 @@ body {
 
 .post-title {
     height: 35px;
+    border: 1px solid black;
 }
 
 .post-container {
@@ -117,6 +119,10 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+.post-select, .post-content, .post-title {
+    width: 90vh;
 }
 
 .blog-title {
@@ -373,5 +379,277 @@ body {
         box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
         border-radius: 30px;
         margin-right: 1rem;
+    }
+}
+
+@media (max-width: 1092px) {
+    .blog-container {
+        width: 50rem;
+    }
+
+    .view-content {
+        width: 40rem;
+    }
+
+    .view-head {
+        max-width: 50rem;
+    }
+
+    .view-title {
+        width: 40rem;
+    }
+}
+
+@media (max-width: 915px) {
+    .blog-container {
+        width: 40rem;
+    }
+
+    .view-content {
+        width: 35rem;
+    }
+
+    .view-image {
+        width: 30rem;
+    }
+
+    .view-head {
+        max-width: 40rem;
+    }
+
+    .view-title {
+        width: 30rem;
+        font-size: 1.8rem;
+    }
+
+    .p-container {
+        width: 80vh;
+    }
+
+    .post-select, .post-content, .post-title {
+        width: 70vh;
+    }
+}
+
+@media (max-width: 740px) {
+    .blog-container {
+        width: 35rem;
+    }
+
+    .view-content {
+        width: 30rem;
+    }
+
+    .view-image {
+        width: 30rem;
+    }
+
+    .view-head {
+        max-width: 35rem;
+    }
+
+    .view-title {
+        max-width: 26rem;
+        font-size: 1.6rem;
+    }
+
+    .p-container {
+        width: 70vh;
+    }
+
+    .post-select, .post-content, .post-title {
+        width: 60vh;
+    }
+
+    .search-select {
+        width: 38rem;
+    }
+}
+
+@media (max-width: 630px) {
+    .blog-container {
+        width: 30rem;
+    }
+
+    .view-content {
+        width: 25rem;
+    }
+
+    .view-image {
+        width: 25rem;
+    }
+
+    .view-head {
+        max-width: 30rem;
+    }
+
+    .view-title {
+        max-width: 20rem;
+        font-size: 1.5rem;
+    }
+
+    .p-container {
+        width: 60vh;
+    }
+
+    .post-select, .post-content, .post-title {
+        width: 50vh;
+    }
+
+    .search-select {
+        width: 35rem;
+    }
+
+    .search-img {
+        width: 40rem;
+    }
+}
+
+@media (max-width: 575px) {
+    .blog-container {
+        width: 25rem;
+    }
+
+    .view-content {
+        width: 20rem;
+    }
+
+    .view-image {
+        width: 20rem;
+    }
+
+    .view-head {
+        max-width: 25rem;
+    }
+
+    .view-title {
+        max-width: 16rem;
+        font-size: 1.3rem;
+    }
+
+    .p-container {
+        width: 45vh;
+    }
+
+    .post-select, .post-content, .post-title {
+        width: 40vh;
+    }
+
+    .post-labels {
+        font-size: 1.1rem;
+    }
+
+    .post-head {
+        font-size: 2rem;
+    }
+
+    .search-select {
+        width: 25rem;
+    }
+
+    .search-img {
+        width: 32rem;
+    }
+
+    .mypost-title {
+        font-size: 2.1rem;
+    }
+
+    .no-img {
+        width: 28rem;
+        height: 30rem;
+        margin-top: -7rem;
+    }
+    
+    .search-title {
+        font-size: 2rem;
+    }
+
+    .result-title {
+        font-size: 1.7rem;
+    }
+
+    .no-text1 {
+        font-size: 1.4rem;
+    }
+    
+    .no-text2 {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 420px) {
+    .blog-container {
+        width: 20rem;
+    }
+
+    .view-content {
+        width: 15rem;
+    }
+
+    .view-image {
+        width: 15rem;
+    }
+
+    .view-head {
+        max-width: 20rem;
+    }
+
+    .view-title {
+        max-width: 12rem;
+        font-size: 1.3rem;
+    }
+
+    .p-container {
+        width: 40vh;
+    }
+
+    .post-labels {
+        font-size: 1rem;
+    }
+
+    .post-select, .post-content, .post-title, .post-image {
+        width: 35vh;
+    }
+
+    .post-info {
+        align-items: center;
+    }
+
+    .post-head {
+        font-size: 1.8rem;
+    }
+
+    .search-select {
+        width: 20rem;
+    }
+
+    .search-img {
+        width: 25rem;
+    }
+
+    .mypost-title {
+        font-size: 2rem;
+    }
+
+    .no-img {
+        width: 26rem;
+        height: 30rem;
+    }
+    
+    .search-title {
+        font-size: 2rem;
+    }
+
+    .result-title {
+        font-size: 1.7rem;
+    }
+
+    .no-text1 {
+        font-size: 1.4rem;
+    }
+    
+    .no-text2 {
+        font-size: 1.2rem;
     }
 }
