@@ -11,6 +11,10 @@ const LikedPost = () => {
     const [postList, setPostList] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    if (localStorage.getItem('isAuth') === 'false') {
+        window.location.href = '/';
+      }
+
     useEffect(() => {
         const getPosts = async () => {
             const data = await getDocs(postRef);

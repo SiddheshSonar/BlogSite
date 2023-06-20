@@ -23,7 +23,7 @@ const Blog = () => {
   console.log(post.likes)
 
   if (localStorage.getItem('isAuth') === 'false') {
-    window.location.href = '/login';
+    window.location.href = '/';
   }
 
   useEffect(() => {

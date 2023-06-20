@@ -10,7 +10,6 @@ const MyPost = () => {
     const postRef = collection(db, 'posts');
     const [postList, setPostList] = useState([]);
     const [loading, setLoading] = useState(true);
-    console.log(postList)
 
     useEffect(() => {
         const getPosts = async () => {
@@ -31,7 +30,7 @@ const MyPost = () => {
     });
 
     if (localStorage.getItem('isAuth') === 'false') {
-        window.location.href = '/login';
+        window.location.href = '/';
     }
 
     return (

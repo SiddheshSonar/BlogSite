@@ -26,7 +26,7 @@ const Home = () => {
     });
 
     if (localStorage.getItem('isAuth') === 'false') {
-        window.location.href = '/login';
+        window.location.href = '/';
     } else {
         return (
             <div>

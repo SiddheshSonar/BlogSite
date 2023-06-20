@@ -13,6 +13,10 @@ const Search = () => {
   const [searchedPosts, setSearchedPosts] = useState([]);
   const [isSearch, setIsSearch] = useState(false);
 
+  if (localStorage.getItem('isAuth') === 'false') {
+    window.location.href = '/';
+  }
+
   const handleTagChange = (selectedOptions) => {
     setSelectedTags(selectedOptions);
   };

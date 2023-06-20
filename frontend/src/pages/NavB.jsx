@@ -15,7 +15,7 @@ function NavB() {
       localStorage.clear();
       localStorage.setItem('isAuth', false);
     });
-    window.location.pathname = '/login';
+    window.location.pathname = '/';
   };
 
   return (

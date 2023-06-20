@@ -21,12 +21,10 @@ const Post = () => {
   const navigate = useNavigate();
   const postRef = collection(db, 'posts');
 
-  useEffect(() => {
-    if (localStorage.getItem('isAuth') === 'false') {
-      navigate('/login');
-    }
-  }, [navigate]);
-
+  if (localStorage.getItem('isAuth') === 'false') {
+    window.location.href = '/';
+  }
+  
   const createPost = async () => {
     if (title === '' || content === '' || selectedTags.length === 0) {
       toast.error('Please fill all the required fields');
