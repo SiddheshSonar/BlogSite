@@ -216,27 +216,30 @@ function PostCard({ post }) {
       <CardContent onClick={handleCardClick} sx={{ cursor: 'pointer' }}>
         <h5 className="blog-title">{post.title}</h5>
         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-          <p className="blog-content" dangerouslySetInnerHTML={{ __html: splitAndSliceContent(post.content, 10) }} />
+          <div>
+            
+          <p className="blog-card-content" dangerouslySetInnerHTML={{ __html: splitAndSliceContent(post.content, 10) }} />
+          {post.searchTag != 0 && (
+          <div className="tag-section">
+            <h6 className="tag-head">Tags: </h6>
+            <div className="blog-tags">
+              {post.searchTag.map((tag) => {
+                return <p className="tag-card">#{tag}</p>;
+              })}
+            </div>
+          </div>
+        )}
+          </div>
           {post.image.url && (
             <CardMedia
               component="img"
               className="blog-image"
               image={post.image.url}
               alt="image here"
-              sx={{ width: '6rem', height: '6rem', borderRadius: '0.5rem' }}
+              sx={{ width: '7rem', height: '7rem', borderRadius: '0.5rem', objectFit: "cover" }}
             />
           )}
         </div>
-        {post.searchTag != 0 && (
-          <div className="tag-section">
-            <h6 className="tag-head">Tags: </h6>
-            <div className="blog-tags">
-              {post.searchTag.map((tag) => {
-                return <p className="tag">#{tag}</p>;
-              })}
-            </div>
-          </div>
-        )}
       </CardContent>
     </Card>
   );

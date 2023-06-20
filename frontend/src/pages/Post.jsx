@@ -91,6 +91,7 @@ const Post = () => {
             <ReactQuill
               theme="snow"
               className="post-content"
+              placeholder="What's on your mind?"
               value={content}
               onChange={(value) => {
                 setContent(value);

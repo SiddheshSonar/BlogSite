@@ -65,6 +65,7 @@ const Tags = [
   { value: 'Makeup', label: 'Makeup' },
   { value: 'Marriage', label: 'Marriage' },
   { value: 'Marketing', label: 'Marketing' },
+  { value: 'Marvel', label: 'Marvel' },
   { value: 'Meditation', label: 'Meditation' },
   { value: 'Meme', label: 'Meme' },
   { value: 'Mindful-Eating', label: 'Mindful Eating' },
