@@ -3,7 +3,7 @@ import { auth, provider, db } from '../Firebase-config';
 import { collection, doc, getDoc, setDoc } from 'firebase/firestore';
 import { signInWithPopup } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
-import GoogleIcon from '@mui/icons-material/Google';
+import Logo from "../assets/logo.png"
 import '../App.css';
 
 function Login({ setIsAuth }) {
@@ -24,7 +24,6 @@ function Login({ setIsAuth }) {
       const userDoc = await getDoc(userDocRef);
   
       if (!userDoc.exists()) {
-        // Create new user document in Firestore
         await setDoc(userDocRef, {
           name: userInfo.user.displayName,
           id: userInfo.user.uid,
@@ -44,10 +43,17 @@ function Login({ setIsAuth }) {
 
   return (
     <div className='login-container'>
-      <h1 className='login-title'>BlogBuster</h1>
+      <h1 className='login-title'>
+      BlogsPress
+      <img 
+      src={Logo}
+      alt="" 
+      width="60px"/>
+      </h1>
       <div className='img-btn'>
-      <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp" className="img-fluid" alt="image here" />
+      <img src="https://img.freepik.com/premium-vector/blog-authors-writing-articles_179970-1523.jpg?w=900" className="img-fluid" alt="image here" />
       <div className="sign-container justify-content-center align-items-center my-2">
+        <h2 className='sign-title'>Begin Your Blogging Journey ;)</h2>
         <p className='signIn'>Sign In with Google</p>
         <div className='text-center text-md-start pt-2'>
           <button className="btn btn-light sign-btn" size='lg' onClick={signInWithGoogle}>

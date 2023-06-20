@@ -10,6 +10,8 @@ import { db, auth } from '../Firebase-config';
 import toast, { Toaster } from 'react-hot-toast';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import moment from 'moment';
+
 
 const Blog = () => {
   const [loading, setLoading] = useState(true);
@@ -41,13 +43,9 @@ const Blog = () => {
   }, [post.id]);
 
   function formatDate(dateString) {
-    const date = new Date(dateString);
-    const month = date.toLocaleString('default', { month: 'long' });
-    const day = date.getDate();
-    const year = date.getFullYear();
-    const time = date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
-
-    return `${month} ${day}, ${year}, ${time}`;
+    const date = moment(dateString, ['MM/DD/YYYY HH:mm:ss A', 'DD/MM/YYYY HH:mm:ss A', 'YYYY-MM-DD HH:mm:ss A']);
+    const formattedDate = date.format('MMMM D, YYYY, h:mm A');
+    return formattedDate;
   }
 
   const handleLike = async () => {

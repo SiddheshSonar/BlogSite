@@ -47,6 +47,7 @@ const MyPost = () => {
                     }}>
                         <CircularProgress />
                     </Box>}
+                {displayPosts.length === 0 && <h1 className='no-title'>Don't keep your ideas to yourself <a href='/createblog' style={{textDecoration: "none"}}>Start blogging!</a></h1>}
                 <div>{displayPosts}</div>
             </div>
         </div>

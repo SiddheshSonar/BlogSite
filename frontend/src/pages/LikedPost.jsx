@@ -40,6 +40,7 @@ const LikedPost = () => {
                     }}>
                         <CircularProgress />
                     </Box>}
+                {likedPosts.length === 0 && <h1 className='no-title'>No Liked Blogs :( <a href='/home' style={{textDecoration: "none"}}>Start adding Blogs you adore!</a></h1>}
                 <div>{likedPosts}</div>
             </div>
         </div>
