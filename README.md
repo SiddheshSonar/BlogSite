@@ -4,6 +4,8 @@
 
 Welcome to the official repository of **BlogsPress**, a dynamic blog website built using React and Firebase. 🚀
 
+Visit the website at https://blogspress.netlify.app and start your blogging journey!
+
 ## Table of Contents
 
 - [Introduction](#introduction)
@@ -47,7 +49,6 @@ Feel free to explore the BlogsPress website, create your own blogs, and interact
 - Organize your liked blogs and manage your contributions.
 - Utilize the search feature to discover content tailored to your interests.
 
-Visit the website at https://blogspress.netlify.app and start your blogging journey!
 
 ## Contributing
 
