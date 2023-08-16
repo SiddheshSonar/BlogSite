@@ -32,8 +32,8 @@ Hello there! This is where you'll find all the code and resources that power the
 
 To get a local copy of the BlogsPress website up and running, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/yourusername/blogspress.git`
-2. Navigate to the project directory: `cd blogspress`
+1. Clone the repository: `git clone https://github.com/SiddheshSonar/BlogsPress.git`
+2. Navigate to the project directory: `cd frontend`
 3. Install dependencies: `npm install`
 4. Start the development server: `npm start`
 
